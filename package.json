@@ -1,0 +1,20 @@
+{
+  "name": "mi-proyecto-whatsapp",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "transform": "node ./src/scripts/transformarExcel.js",
+    "send": "node ./src/scripts/enviarMasivo.js",
+    "test-send": "node ./src/scripts/enviarMensajePrueba.js",
+    "test-template": "node ./src/scripts/enviarTemplatePrueba.js",
+    "masivo": "node ./src/scripts/enviarTemplateMasivoExcel.js"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5",
+    "axios": "^1.2.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "p-queue": "^7.1.0"
+  }
+}
