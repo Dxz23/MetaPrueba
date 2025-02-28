@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subir Excel y Enviar Plantilla</title>
+</head>
+<body>
+  <h1>Subir Excel y Enviar Plantilla</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="excelFile" id="excelFile" accept=".xlsx" required>
+    <button type="submit">Enviar Mensaje</button>
+  </form>
+  <div id="result"></div>
+  
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('excelFile');
+      const formData = new FormData();
+      formData.append('excelFile', fileInput.files[0]);
+      
+      try {
+        const res = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.message) {
+          document.getElementById('result').textContent = data.message;
+        } else {
+          document.getElementById('result').textContent = 'Error: ' + (data.error || 'Error desconocido');
+        }
+      } catch (err) {
+        document.getElementById('result').textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

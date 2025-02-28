@@ -2,6 +2,7 @@ import path from 'path';
 import { google } from 'googleapis';
 
 const sheets = google.sheets('v4');
+const SPREADSHEET_ID = '1_XoahssK8yMJyexIw_kaUBNpY4rP2vSpavIYBPyl7kI';
 
 async function appendBatchToSheet(batchData) {
   const auth = new google.auth.GoogleAuth({
@@ -9,10 +10,9 @@ async function appendBatchToSheet(batchData) {
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
   const authClient = await auth.getClient();
-  const spreadsheetID = '1_XoahssK8yMJyexIw_kaUBNpY4rP2vSpavIYBPyl7kI';
 
   const request = {
-    spreadsheetId: spreadsheetID,// Usa la constante definida
+    spreadsheetId: SPREADSHEET_ID,
     range: 'reservas!A:G',
     valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
