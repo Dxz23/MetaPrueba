@@ -3,21 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <title>Subir Excel y Enviar Plantilla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enlazar el CSS específico para index.html -->
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-  <h1>Subir Excel y Enviar Plantilla</h1>
-  <form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" name="excelFile" id="excelFile" accept=".xlsx" required>
-    <button type="submit">Enviar Mensaje</button>
-  </form>
-  <div id="result"></div>
+  <header class="header">
+    <!-- Si cuentas con un logo, ponlo aquí, de lo contrario, quita la etiqueta <img> -->
+    <img src="/img/Logo.png" alt="Logo ChocaM" class="logo">
+    <h2>ChocaMex - Recordatorios de Cobranza</h2>
+  </header>
+  
+  <div class="container">
+    <h1>Subir Excel y Enviar Plantilla</h1>
+    <p class="instrucciones">
+      Selecciona un archivo Excel (.xlsx) que contenga la información de tus clientes. 
+      Asegúrate de que el archivo cumpla con el formato requerido.
+    </p>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+      <!-- Input file oculto -->
+      <input type="file" name="excelFile" id="excelFile" accept=".xlsx" required style="display:none;">
+      <!-- Label personalizado para seleccionar archivo -->
+      <label for="excelFile" class="custom-file-label">Seleccionar Archivo</label>
+      <button type="submit" class="submit-btn">Enviar Mensaje</button>
+    </form>
+    
+    <div id="result"></div>
+  </div>
+  
+  <footer class="footer">
+    <p>&copy; 2025 ChocaMex. Todos los derechos reservados.</p>
+    <a href="/logout" class="logout">Cerrar sesión</a>
+  </footer>
   
   <script>
+    // Mostrar el nombre del archivo seleccionado en el label
+    document.getElementById('excelFile').addEventListener('change', function() {
+      const label = document.querySelector('.custom-file-label');
+      if (this.files && this.files.length > 0) {
+        label.textContent = this.files[0].name;
+      } else {
+        label.textContent = "Seleccionar Archivo";
+      }
+    });
+    
+    // Manejo del envío de formulario
     document.getElementById('uploadForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const fileInput = document.getElementById('excelFile');
       const formData = new FormData();
       formData.append('excelFile', fileInput.files[0]);
+      
+      // Indicador de carga
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = "Cargando...";
+      resultEl.className = "";
       
       try {
         const res = await fetch('/upload', {
@@ -26,12 +67,15 @@
         });
         const data = await res.json();
         if (data.message) {
-          document.getElementById('result').textContent = data.message;
+          resultEl.textContent = data.message;
+          resultEl.classList.add('success');
         } else {
-          document.getElementById('result').textContent = 'Error: ' + (data.error || 'Error desconocido');
+          resultEl.textContent = 'Error: ' + (data.error || 'Error desconocido');
+          resultEl.classList.add('error');
         }
       } catch (err) {
-        document.getElementById('result').textContent = 'Error: ' + err.message;
+        resultEl.textContent = 'Error: ' + err.message;
+        resultEl.classList.add('error');
       }
     });
   </script>
