@@ -29,7 +29,10 @@ app.get('/', (req, res) => {
   res.send(`<pre>Servidor IZZI corriendo. Usa /webhook.</pre>`);
 });
 
-// Ajusta si no tienes config.env. O directamente usa process.env.PORT.
+// Imprime la hora del servidor en formato UTC
+console.log("Hora del servidor:", new Date().toISOString());
+
+// Inicia el servidor
 app.listen(config.PORT, () => {
   console.log(`Server is listening on port: ${config.PORT}`);
 });
