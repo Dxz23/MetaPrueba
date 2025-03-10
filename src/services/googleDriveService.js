@@ -5,11 +5,20 @@ import path from 'path';
 
 async function authenticateDrive() {
   let auth;
+
   if (process.env.GOOGLE_DRIVE_CREDENTIALS) {
-    // Reemplaza las secuencias \\n por saltos de línea reales
-    const credentialsString = process.env.GOOGLE_DRIVE_CREDENTIALS;
-    const credentials = JSON.parse(credentialsString.replace(/\\n/g, '\n'));
+    const rawEnv = process.env.GOOGLE_DRIVE_CREDENTIALS;
+    // Imprime la cadena *tal cual* la recibe tu app:
+    console.log("RAW GOOGLE_DRIVE_CREDENTIALS:", rawEnv);
+    
+    // Reemplaza secuencias \\n por saltos de línea reales:
+    const fixedString = rawEnv.replace(/\\n/g, '\n');
+    console.log("Fixed String:", fixedString);
+
+    // Luego parseas:
+    const credentials = JSON.parse(fixedString);
     console.log("Usando credenciales de Google Drive desde la variable de entorno.");
+
     auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/drive.file']
