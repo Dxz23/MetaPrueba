@@ -1,4 +1,2 @@
 node_modules/
 .env
-src/credentials/credentials.json
-src/credentials/drive-credentials.json
