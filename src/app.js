@@ -1,12 +1,13 @@
-// Forzar la opción legacy de OpenSSL (esto se aplica antes de cualquier otra importación)
-process.env.NODE_OPTIONS = '--openssl-legacy-provider';
-
+// app.js
 import 'dotenv/config';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import config from './config/env.js';  // Este archivo lee las variables de entorno
+import config from './config/env.js';  // Lee las variables de entorno
 import webhookRoutes from './routes/webhookRoutes.js';
+
+// Imprime el valor de NODE_OPTIONS para verificar que se aplique
+console.log("NODE_OPTIONS:", process.env.NODE_OPTIONS);
 
 // Verifica y crea la carpeta "temp" en la raíz del proyecto
 const tempDir = path.join(process.cwd(), 'temp');
