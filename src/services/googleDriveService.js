@@ -4,27 +4,28 @@ import fs from 'fs';
 import path from 'path';
 
 async function authenticateDrive() {
-  // Si tienes la variable GOOGLE_DRIVE_CREDENTIALS establecida en Railway:
+  // Si existe la variable en el entorno:
   if (process.env.GOOGLE_DRIVE_CREDENTIALS) {
-    // (A) Lee la variable cruda (sin hacer replace):
+    // 1) Lee la cadena tal cual, NO hagas replace aún.
     const raw = process.env.GOOGLE_DRIVE_CREDENTIALS;
     console.log("RAW GOOGLE_DRIVE_CREDENTIALS:", raw);
 
-    // (B) Parsear directamente la cadena JSON
+    // 2) Parseamos directamente el JSON con los \\" y \\n escapados.
     const credentials = JSON.parse(raw);
 
-    // (C) Solo en 'private_key' convertimos '\\n' a saltos de línea reales
+    // 3) Solo en la private_key convertimos '\\n' a saltos de línea reales.
     credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
 
     console.log("Usando credenciales de Google Drive desde variable de entorno.");
-    // (D) Creamos GoogleAuth con esas credenciales
+
+    // 4) Instanciamos GoogleAuth con esas credenciales
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/drive.file']
     });
     return auth;
   } else {
-    // Si no existe la variable, se asume un archivo local (fall-back)
+    // Si NO existe la variable de entorno, usaremos un archivo local a modo fallback
     console.log("Usando credenciales de Google Drive desde archivo local (drive-credentials.json).");
     const auth = new google.auth.GoogleAuth({
       keyFile: path.join(process.cwd(), 'src', 'credentials', 'drive-credentials.json'),
@@ -35,16 +36,18 @@ async function authenticateDrive() {
 }
 
 export async function uploadFileToDrive(filePath, fileName, mimeType) {
+  // Obtenemos la autenticación de Drive
   const auth = await authenticateDrive();
   const drive = google.drive({ version: 'v3', auth });
 
+  // Armamos el objeto con metadatos
   const fileMetadata = { name: fileName };
   const media = {
     mimeType,
     body: fs.createReadStream(filePath)
   };
 
-  // Subimos a Drive
+  // Subimos el archivo a Google Drive
   const response = await drive.files.create({
     resource: fileMetadata,
     media,
@@ -53,7 +56,7 @@ export async function uploadFileToDrive(filePath, fileName, mimeType) {
 
   const fileId = response.data.id;
 
-  // Otorga permisos de lectura pública
+  // Damos permiso de lectura pública para quien tenga el enlace
   await drive.permissions.create({
     fileId,
     requestBody: {
@@ -62,6 +65,7 @@ export async function uploadFileToDrive(filePath, fileName, mimeType) {
     }
   });
 
-  // Retornamos la URL de descarga
-  return `https://drive.google.com/uc?id=${fileId}&export=download`;
+  // Retornamos la URL de descarga directa
+  const fileUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
+  return fileUrl;
 }
