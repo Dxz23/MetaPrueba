@@ -4,10 +4,23 @@ import fs from 'fs';
 import path from 'path';
 
 async function authenticateDrive() {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(process.cwd(), 'src/credentials', 'drive-credentials.json'),
-    scopes: ['https://www.googleapis.com/auth/drive.file']
-  });
+  let auth;
+  if (process.env.GOOGLE_DRIVE_CREDENTIALS) {
+    // Utiliza las credenciales definidas en la variable de entorno
+    const credentials = JSON.parse(process.env.GOOGLE_DRIVE_CREDENTIALS);
+    console.log("Usando credenciales de Google Drive desde la variable de entorno.");
+    auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/drive.file']
+    });
+  } else {
+    // Si no está definida la variable de entorno, se utiliza el archivo local
+    console.log("Usando credenciales de Google Drive desde el archivo local.");
+    auth = new google.auth.GoogleAuth({
+      keyFile: path.join(process.cwd(), 'src/credentials', 'drive-credentials.json'),
+      scopes: ['https://www.googleapis.com/auth/drive.file']
+    });
+  }
   return auth;
 }
 
