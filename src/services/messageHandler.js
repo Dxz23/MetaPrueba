@@ -63,10 +63,7 @@ const coverageZipCodes = [
 ];
 
 function formatPackageName(packageId) {
-  return packageId
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  return packageId.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
 function getStepPrompt(step) {
@@ -91,34 +88,13 @@ function getStepPrompt(step) {
 
 function getStepHeader(step) {
   const headers = {
-    cobertura: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/MexicaliCentroCP.png" }
-    },
-    nombre: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/maxresdefault%20(1).jpg" }
-    },
-    correo: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/gmail.png" }
-    },
-    celulares: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/istockphoto-1347843229-612x612.jpg" }
-    },
-    identificacion_frontal: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/ine.jpg" }
-    },
-    identificacion_trasera: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/ine.jpg" }
-    },
-    domicilio: {
-      type: "image",
-      image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/comprobante.jpg" }
-    }
+    cobertura: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/MexicaliCentroCP.png" } },
+    nombre: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/maxresdefault%20(1).jpg" } },
+    correo: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/gmail.png" } },
+    celulares: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/istockphoto-1347843229-612x612.jpg" } },
+    identificacion_frontal: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/ine.jpg" } },
+    identificacion_trasera: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/ine.jpg" } },
+    domicilio: { type: "image", image: { link: "https://storage.googleapis.com/imagenes-izzi-2025/comprobante.jpg" } }
   };
   return headers[step] || null;
 }
@@ -158,8 +134,7 @@ class MessageHandler {
   async sendWelcomeMessage(to, messageId, senderInfo) {
     try {
       const name = senderInfo.profile?.name || senderInfo.wa_id || "";
-      const imageUrl =
-        "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/Logotipo_izzi_negativo.png";
+      const imageUrl = "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/Logotipo_izzi_negativo.png";
       console.log("Enviando mensaje de bienvenida a:", to);
       await whatsappService.sendWelcomeInteractiveMessage(to, name, imageUrl);
     } catch (error) {
@@ -185,10 +160,7 @@ class MessageHandler {
       ];
       const header = {
         type: "image",
-        image: {
-          link:
-            "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/Logotipo_izzi_negativo.png"
-        }
+        image: { link: "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/Logotipo_izzi_negativo.png" }
       };
       console.log("Enviando menú de bienvenida a:", to);
       await whatsappService.sendWelcomeMenuMessage(to, menuMessage, buttons, header);
@@ -217,10 +189,7 @@ class MessageHandler {
       ];
       const header = {
         type: "image",
-        image: {
-          link:
-            "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/carrusel_01_desktop.png"
-        }
+        image: { link: "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/carrusel_01_desktop.png" }
       };
       console.log("Enviando mensaje de paquetes a:", to);
       await whatsappService.sendWelcomeMenuMessage(to, messageText, buttons, header);
@@ -355,10 +324,10 @@ Responde con "contratar" o "asesor".`;
     ];
     const randomIndex = Math.floor(Math.random() * advisors.length);
     const selectedAdvisor = advisors[randomIndex];
-
+  
     await whatsappService.sendMediaMessage(to, "image", selectedAdvisor.photo, "");
     await new Promise(resolve => setTimeout(resolve, 1000));
-
+  
     const contact = {
       name: {
         formatted_name: `Asesor ${selectedAdvisor.first_name} ${selectedAdvisor.last_name}`.trim(),
@@ -371,7 +340,7 @@ Responde con "contratar" o "asesor".`;
     };
     await whatsappService.sendContactMessage(to, contact);
     await new Promise(resolve => setTimeout(resolve, 500));
-
+  
     const menuMessage = "Para más opciones, selecciona:";
     const buttons = [
       { type: "reply", reply: { id: "ver_paquetes", title: "Ver paquetes" } },
@@ -415,17 +384,14 @@ Si tienes dudas, escribe "asesor".`;
       ];
       const header = {
         type: "image",
-        image: {
-          link:
-            "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/izzi_logo_recordatorio.png"
-        }
+        image: { link: "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/izzi_logo_recordatorio.png" }
       };
-
+  
       const sendReminder = async () => {
         console.log("Enviando recordatorio de paquetes a:", to);
         await whatsappService.sendWelcomeMenuMessage(to, messageText, buttons, header);
       };
-
+  
       const reminder = setTimeout(sendReminder, 7200000);
       if (!this.contractState[to]) {
         this.contractState[to] = {};
@@ -435,7 +401,7 @@ Si tienes dudas, escribe "asesor".`;
       console.error("Error en schedulePackagesReminder:", error);
     }
   }
-
+  
   cancelPackagesReminder(to) {
     const state = this.contractState[to];
     if (state && state.packagesReminder) {
@@ -443,7 +409,7 @@ Si tienes dudas, escribe "asesor".`;
       delete state.packagesReminder;
     }
   }
-
+  
   scheduleContractingReminders(to) {
     try {
       this.cancelContractingReminders(to);
@@ -463,24 +429,21 @@ Si tienes dudas, escribe "asesor".`;
       ];
       const header = {
         type: "image",
-        image: {
-          link:
-            "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/izzi_logo_recordatorio.png"
-        }
+        image: { link: "https://raw.githubusercontent.com/Dxz23/imagenes-publicas/main/izzi_logo_recordatorio.png" }
       };
-
+  
       const sendReminder = async () => {
         console.log("Enviando recordatorio de contratación a:", to);
         await whatsappService.sendInteractiveButtons(to, messageText, buttons, header);
       };
-
+  
       const reminder = setTimeout(sendReminder, 7200000);
       state.reminders = { contracting: reminder };
     } catch (error) {
       console.error("Error en scheduleContractingReminders:", error);
     }
   }
-
+  
   cancelContractingReminders(to) {
     const state = this.contractState[to];
     if (state && state.reminders && state.reminders.contracting) {
@@ -488,7 +451,7 @@ Si tienes dudas, escribe "asesor".`;
       delete state.reminders.contracting;
     }
   }
-
+  
   // ---------------------------
   // MANEJO DEL FLUJO DE MENÚ Y CONTRATACIÓN
   // ---------------------------
@@ -496,7 +459,7 @@ Si tienes dudas, escribe "asesor".`;
     const normalizedTo = normalizeMexicanPhone(to);
     this.cancelPackagesReminder(normalizedTo);
     this.cancelContractingReminders(normalizedTo);
-
+  
     switch (option) {
       case "ver_paquetes": {
         await this.sendPackages(normalizedTo);
@@ -551,16 +514,14 @@ Si tienes dudas, escribe "asesor".`;
         await this.sendWelcomeMenu(normalizedTo);
     }
   }
-
+  
   async handleContractFlow(to, messageText, messageId) {
-    // Evitamos procesar duplicados si ya se procesó este ID
     if (this.isMessageProcessed(to, messageId)) return;
     this.markMessageAsProcessed(to, messageId);
-
-    // Si messageText es un string, lo usamos; de lo contrario, se deja como cadena vacía.
+  
     let lowerText = typeof messageText === "string" ? messageText.toLowerCase().trim() : "";
     const normalizedInput = lowerText.replace(/\s+/g, "_");
-
+  
     if (["menu", "menú"].includes(lowerText)) {
       this.cancelContractingReminders(to);
       delete this.contractState[to];
@@ -668,7 +629,6 @@ Si tienes dudas, escribe "asesor".`;
             return;
           }
           state.celulares = all.slice(0, 2).join(" - ");
-          // Actualizamos a la etapa de identificación frontal
           state.step = "identificacion_frontal";
           await this.sendStepMessage(to, getStepPrompt("identificacion_frontal"), getStepHeader("identificacion_frontal"));
         } else {
@@ -687,7 +647,7 @@ Si tienes dudas, escribe "asesor".`;
         break;
       }
       case "identificacion_frontal": {
-        // Se espera una imagen que se asignará como INE 1 (parte frontal)
+        // Se espera una imagen (o PDF) para la parte frontal de la INE
         if (
           typeof messageText !== "string" &&
           (messageText.type === "image" ||
@@ -710,7 +670,7 @@ Si tienes dudas, escribe "asesor".`;
             console.log("INE frontal guardado en:", tempFilePath);
             const fileUrl = await uploadFileToDrive(tempFilePath, `ine_front_${to}.png`, "image/png");
             state.ine_front = fileUrl;
-            // Luego de guardar la frontal, actualizamos a "identificacion_trasera" y pedimos la imagen trasera
+            // Cambia al siguiente paso: solicitar la parte trasera
             state.step = "identificacion_trasera";
             await this.sendStepMessage(to, getStepPrompt("identificacion_trasera"), getStepHeader("identificacion_trasera"));
           } catch (error) {
@@ -727,7 +687,7 @@ Si tienes dudas, escribe "asesor".`;
         break;
       }
       case "identificacion_trasera": {
-        // Se espera una imagen que se asignará como INE 2 (parte trasera)
+        // Se espera la imagen (o PDF) para la parte trasera de la INE
         if (
           typeof messageText !== "string" &&
           (messageText.type === "image" ||
@@ -750,7 +710,7 @@ Si tienes dudas, escribe "asesor".`;
             console.log("INE trasera guardada en:", tempFilePath);
             const fileUrl = await uploadFileToDrive(tempFilePath, `ine_back_${to}.png`, "image/png");
             state.ine_back = fileUrl;
-            // Con ambas imágenes ya recibidas, actualizamos el paso a "domicilio" y pedimos el comprobante.
+            // Una vez recibidas ambas imágenes, se procede al comprobante de domicilio
             state.step = "domicilio";
             await this.sendStepMessage(to, getStepPrompt("domicilio"), getStepHeader("domicilio"));
           } catch (error) {
@@ -838,7 +798,7 @@ Si tienes dudas, escribe "asesor".`;
       }
     }
   }
-
+  
   // ---------------------------
   // MANEJO DE MENSAJES CON ARCHIVOS (MEDIA)
   // ---------------------------
@@ -848,7 +808,7 @@ Si tienes dudas, escribe "asesor".`;
     if (!state) return;
     await this.handleContractFlow(fromNumber, message, message.id);
   }
-
+  
   // ---------------------------
   // MANEJO DE MENSAJES ENTRANTES
   // ---------------------------
