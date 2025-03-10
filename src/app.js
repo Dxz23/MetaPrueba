@@ -1,4 +1,4 @@
-// app.js
+// src/app.js
 import 'dotenv/config';
 import express from 'express';
 import fs from 'fs';
@@ -6,8 +6,9 @@ import path from 'path';
 import config from './config/env.js';  // Lee las variables de entorno
 import webhookRoutes from './routes/webhookRoutes.js';
 
-// Imprime el valor de NODE_OPTIONS para verificar que se aplique
+// Verifica que las variables de entorno se hayan aplicado correctamente
 console.log("NODE_OPTIONS:", process.env.NODE_OPTIONS);
+console.log("Node version:", process.version);
 
 // Verifica y crea la carpeta "temp" en la raíz del proyecto
 const tempDir = path.join(process.cwd(), 'temp');
