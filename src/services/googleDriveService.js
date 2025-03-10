@@ -6,10 +6,9 @@ import path from 'path';
 async function authenticateDrive() {
   let auth;
   if (process.env.GOOGLE_DRIVE_CREDENTIALS) {
-    // Carga las credenciales de la variable de entorno
-    let credentials = JSON.parse(process.env.GOOGLE_DRIVE_CREDENTIALS);
-    // Reemplaza los saltos de línea escapados por saltos de línea reales
-    credentials.private_key = credentials.private_key.replace(/\\n/g, "\n");
+    // Reemplaza las secuencias \\n por saltos de línea reales
+    const credentialsString = process.env.GOOGLE_DRIVE_CREDENTIALS;
+    const credentials = JSON.parse(credentialsString.replace(/\\n/g, '\n'));
     console.log("Usando credenciales de Google Drive desde la variable de entorno.");
     auth = new google.auth.GoogleAuth({
       credentials,
