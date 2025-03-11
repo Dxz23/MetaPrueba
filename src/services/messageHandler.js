@@ -233,21 +233,26 @@ Responde con "contratar" o "asesor".`;
   async sendDoublePlay(to) {
     const messageText = `🚀 ¡Disfruta el mejor paquete Double Play con IZZI! 📡📞
 
-💰 Promoción exclusiva por 3 meses con el doble de megas y precios increíbles.
+💰 Promoción exclusiva por 3 meses con el doble de megas y precios increíbles 🔥
 
-📜 Contrato a 12 meses – Los primeros 3 meses con descuento y mayor velocidad.
+📜 Contrato a 12 meses – Los primeros 3 meses con descuento y el doble de velocidad
 
-✨ Opciones:
-🔹 60 Megas (después 40)
-🔹 80 Megas (después 60)
-🔹 100 Megas (después 80)
-🔹 200 Megas (después 150)
-  
-📺 Incluye ViX Premium + HBO Max.
-  
-✍️ Escribe "asesor" para atención personalizada.
-  
-¿Cuál te interesa?`;
+✨ Elige la velocidad y beneficios que mejor se adapten a ti:
+🔹 60 Megas por 3 Meses 💨 (Después 40 Megas)
+💲 $349 MXN por 3 meses (Después $389 MXN fijo)
+🔹 80 Megas por 3 Meses ⚡ (Después 60 Megas)
+💲 $419 MXN por 3 meses (Después $510 MXN fijo)
+🔹 100 Megas por 3 Meses 🚀 (Después 80 Megas)
+💲 $439 MXN por 3 meses (Después $540 MXN fijo)
+🔹 200 Megas por 3 Meses ⚡💨 (Después 150 Megas)
+💲 $509 MXN por 3 meses (Después $610 MXN fijo)
+
+📺 Incluye ViX Premium + HBO Max por 12 meses 🎥🍿
+
+📢 ¡Aprovecha esta promo antes de que termine!
+✍️ Escribe "asesor" para recibir atención personalizada. 💬✅
+
+💡 ¿Cuál te interesa?`;
     const buttons = [
       { type: "reply", reply: { id: "double_40", title: "Double 40" } },
       { type: "reply", reply: { id: "double_60", title: "Double 60" } },
@@ -263,20 +268,25 @@ Responde con "contratar" o "asesor".`;
   async sendTriplePlay(to) {
     const messageText = `🚀 ¡Disfruta el mejor paquete Triple Play con IZZI! 📡🎬📞
 
-💰 Promoción exclusiva por 6 meses con el doble de megas y precios increíbles.
+💰 Promoción exclusiva por 6 meses con el doble de megas y precios increíbles 🔥
 
-📜 Contrato a 12 meses – Los primeros 6 meses con descuento y mayor velocidad.
+📜 Contrato a 12 meses – Los primeros 6 meses con descuento y el doble de velocidad
 
-✨ Opciones:
-🔹 60 Megas (después 40)
-🔹 80 Megas (después 60)
-🔹 100 Megas (después 80)
-🔹 200 Megas (después 150)
-  
-📺 Incluye 200 canales de TV + ViX Premium + LaLiga EA Sports + Sky Sports.
-  
-✍️ Escribe "asesor" para atención personalizada.
-  
+✨ Elige la velocidad y beneficios que mejor se adapten a ti:
+🔹 60 Megas por 6 Meses 💨 (Después 40 Megas)
+💲 $499 MXN por 6 meses (Después $539 MXN fijo)
+🔹 80 Megas por 6 Meses ⚡ (Después 60 Megas)
+💲 $569 MXN por 6 meses (Después $660 MXN fijo)
+🔹 100 Megas por 6 Meses 🚀 (Después 80 Megas)
+💲 $589 MXN por 6 meses (Después $690 MXN fijo)
+🔹 200 Megas por 6 Meses ⚡💨 (Después 150 Megas)
+💲 $659 MXN por 6 meses (Después $760 MXN fijo)
+
+📺 Incluye 200 canales de TV + ViX Premium + LaLiga EA Sports + Sky Sports con Bundesliga 🎥⚽🏆
+
+📢 ¡Aprovecha esta promo antes de que termine!
+✍️ Escribe "asesor" para recibir atención personalizada. 💬✅
+
 ¿Cuál te interesa?`;
     const buttons = [
       { type: "reply", reply: { id: "triple_40", title: "Triple 40" } },
