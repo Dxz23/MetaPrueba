@@ -308,28 +308,21 @@ Responde con "contratar" o "asesor".`;
         last_name: "",
         phone: "+526861716364",
         wa_id: "5216861716364",
-        photo: "https://storage.googleapis.com/imagenes-izzi-2025/monica.png"
+        photo: ""
       },
       {
-        first_name: "Lupita",
+        first_name: "Alan",
         last_name: "",
-        phone: "+526625812173",
-        wa_id: "5216625812173",
-        photo: "https://storage.googleapis.com/imagenes-izzi-2025/lupita.png"
+        phone: "+526634825319",
+        wa_id: "5216634825319",
+        photo: ""
       },
       {
-        first_name: "Ana",
-        last_name: "SALAZAR",
-        phone: "+526862729645",
-        wa_id: "5216862729645",
-        photo: "https://storage.googleapis.com/imagenes-izzi-2025/ana.png"
-      },
-      {
-        first_name: "Berta",
-        last_name: "",
-        phone: "+526863486070",
-        wa_id: "5216863486070",
-        photo: "https://storage.googleapis.com/imagenes-izzi-2025/berta.png"
+        first_name: "Norberto",
+        last_name: "Lopez",
+        phone: "+526611309881",
+        wa_id: "5216611309881",
+        photo: ""
       }
     ];
     const randomIndex = Math.floor(Math.random() * advisors.length);
