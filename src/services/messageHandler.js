@@ -351,7 +351,20 @@ Responde con "contratar" o "asesor".`;
     await whatsappService.sendContactMessage(to, contact);
     await new Promise(resolve => setTimeout(resolve, 500));
   
-    const menuMessage = "Para más opciones, selecciona:";
+    const menuMessage = "🤝 ¡Tu asesor está listo para atenderte! 💬
+
+📢 Para iniciar la conversación, solo envíale un mensaje en WhatsApp.
+📞 Hemos compartido su contacto contigo.
+
+✨ ¿Cómo continuar?
+1️⃣ Abre el chat con tu asesor.
+2️⃣ Envía un "Hola" o consulta tu duda.
+3️⃣ Recibirás asistencia personalizada de inmediato.
+
+Mientras tanto, puedes explorar más opciones:
+📦 Ver paquetes – Descubre nuestras ofertas.
+
+✍️ Escribe "menu" si deseas volver al inicio.";
     const buttons = [
       { type: "reply", reply: { id: "ver_paquetes", title: "Ver paquetes" } },
       { type: "reply", reply: { id: "asesor", title: "Asesor" } }
